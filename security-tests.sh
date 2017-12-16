@@ -7,7 +7,7 @@ mkdir -p $PWD/security $PWD/artifacts;
 echo "::running zap tests"
 docker pull owasp/zap2docker-weekly
 echo ":::Baseline scan"
-docker run --name zap -v $PWD/security:/zap -t owasp/zap2docker-weekly zap-baseline.py \
+docker run --name zap --link webapp -v $PWD/security:/zap -t owasp/zap2docker-weekly zap-baseline.py \
     -t http://webapp:8080 -g gen.conf -r testreport.html
 docker cp zap:/zap/testreport.html.zip $PWD/security;
 docker rm zap
@@ -16,6 +16,7 @@ docker rm zap
 echo "::running arachni tests"
 docker pull ahannigan/docker-arachni
 docker run --rm \
+    --link webapp \
     -v $PWD/security:/arachni/reports  ahannigan/docker-arachni \
     bin/arachni http://webapp:8080 \
     --browser-cluster-pool-size=1 \
