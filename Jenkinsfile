@@ -4,7 +4,7 @@ pipeline {
   stages {
     stage('Run Image') {
       steps {
-        sh './startup.sh'
+        sh 'docker run --rm --name webapp -it -d -p 50000:8080 psiinon/bodgeit'
       }
     }
     stage('Run Security Tests') {
@@ -36,7 +36,7 @@ pipeline {
     }
     stage('Clean up') {
       steps {
-        sh './cleanup.sh'
+        sh 'docker stop webapp'
       }
     }
   }
