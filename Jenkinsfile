@@ -4,9 +4,7 @@ pipeline {
   stages {
     stage('Run Image') {
       steps {
-        sh 'docker pull psiinon/bodgeit'
-        sh 'docker network create security-tests'
-        sh 'run --rm --net security-tests --name webapp -p 50000:8080 -i -t psiinon/bodgeit'
+        sh './startup.sh'
       }
     }
     stage('Run Security Tests') {
@@ -38,10 +36,7 @@ pipeline {
     }
     stage('Clean up') {
       steps {
-        sh 'docker stop webapp'
-        sh 'docker stop zap'
-        sh 'docker rm arachni_report'
-        sh 'docker network rm security-tests'
+        sh './cleanup.sh'
       }
     }
   }
