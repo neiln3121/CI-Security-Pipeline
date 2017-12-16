@@ -7,11 +7,10 @@ mkdir -p $PWD/security $PWD/artifacts;
 echo "::running zap tests"
 docker pull owasp/zap2docker-weekly
 echo ":::Baseline scan"
-docker run --name zap --link webapp -v $PWD/security:/zap -t owasp/zap2docker-weekly zap-baseline.py \
-    -t http://webapp:8080 -g gen.conf -r testreport.html
-docker cp zap:/zap/testreport.html.zip $PWD/security;
+docker run -t --name zap --link webapp -v $PWD/security:/zap/wrk:rw owasp/zap2docker-weekly zap-baseline.py \
+    -t http://webapp:8080 -g gen.conf -r zap-report.html
+docker cp zap:/zap/wrk/zap-report.html $PWD/security;
 docker rm zap
-#docker run --rm --net security-tests -t owasp/zap2docker-weekly zap-cli quick-scan --self-contained --start-options '-config api.disablekey=true' https://webapp:50000; echo $?
 
 echo "::running arachni tests"
 docker pull ahannigan/docker-arachni
