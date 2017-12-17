@@ -21,7 +21,6 @@ docker run --rm \
     --browser-cluster-pool-size=1 \
     --report-save-path=reports/result.io.afr;
 docker run \
-    --net security-tests \
     --name=arachni_report  \
     -v $PWD/security:/arachni/reports ahannigan/docker-arachni \
     bin/arachni_reporter reports/result.io.afr \
