@@ -19,7 +19,6 @@ docker run --rm \
     -v $PWD/security:/arachni/reports  ahannigan/docker-arachni \
     bin/arachni http://webapp:8080 \
     --browser-cluster-pool-size=1 \
-    --output-verbose \
     --report-save-path=reports/result.io.afr;
 docker run \
     --net security-tests \
