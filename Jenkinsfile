@@ -21,7 +21,6 @@ pipeline {
               ]
             )
 
-          archiveArtifacts artifacts: 'artifacts/**', fingerprint: true
           publishHTML (
               target: [
                   allowMissing         : false,
@@ -32,6 +31,7 @@ pipeline {
                   reportName           : "ARACHNI Report"
               ]
             )
+          archiveArtifacts artifacts: 'artifacts/**', fingerprint: true
         }
     }
   }
