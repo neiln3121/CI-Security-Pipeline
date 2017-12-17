@@ -17,7 +17,6 @@ docker run --rm \
     --link webapp \
     -v $PWD/security:/arachni/reports  ahannigan/docker-arachni \
     bin/arachni http://webapp:8080/bodgeit \
-    --browser-cluster-pool-size=1 \
     --report-save-path=reports/result.io.afr;
 docker run --rm \
     --name=arachni_report  \
