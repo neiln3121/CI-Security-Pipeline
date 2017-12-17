@@ -2,7 +2,7 @@ ZAP_PORT=8090
 echo "::running security tests"
 rm -rf $PWD/security
 rm -rf $PWD/artifacts
-mkdir -m775 -p $PWD/security $PWD/artifacts;
+mkdir -m777 -p $PWD/security $PWD/artifacts;
 
 echo "::running zap tests"
 docker pull owasp/zap2docker-weekly
