@@ -13,7 +13,7 @@ pipeline {
           publishHTML (
               target: [
                       allowMissing         : false,
-                      alwaysLinkToLastBuild: true,
+                      alwaysLinkToLastBuild: false,
                       keepAll              : true,
                       reportDir            : 'artifacts',
                       reportFiles          : 'zap-report.html',
@@ -24,7 +24,7 @@ pipeline {
           publishHTML (
               target: [
                   allowMissing         : false,
-                  alwaysLinkToLastBuild: true,
+                  alwaysLinkToLastBuild: false,
                   keepAll              : true,
                   reportDir            : 'artifacts',
                   reportFiles          : 'index.html',
