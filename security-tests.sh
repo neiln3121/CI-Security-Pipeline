@@ -9,7 +9,7 @@ docker pull owasp/zap2docker-weekly
 echo ":::Baseline scan"
 docker run --rm -t --name zap --link webapp -v $PWD/security:/zap/wrk owasp/zap2docker-weekly zap-baseline.py \
     -t http://webapp:8080/bodgeit -r zap-report.html
-docker cp $PWD/security/zap-report.html $PWD/artifacts;
+cp $PWD/security/zap-report.html $PWD/artifacts;
 
 echo "::running arachni tests"
 docker pull ahannigan/docker-arachni
