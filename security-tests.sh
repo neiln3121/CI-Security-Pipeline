@@ -7,7 +7,7 @@ mkdir -p $PWD/security $PWD/artifacts;
 echo "::running zap tests"
 docker pull owasp/zap2docker-weekly
 echo ":::Baseline scan"
-docker run -t --name zap --link webapp -v $PWD/security:/zap/wrk:rw owasp/zap2docker-weekly zap-baseline.py \
+docker run -t --name zap --link webapp -v $PWD/security:/zap/wrk owasp/zap2docker-weekly zap-baseline.py \
     -t http://webapp:8080/bodgeit -g gen.conf -r zap-report.html
 docker cp zap:/zap/wrk/zap-report.html $PWD/artifacts;
 docker rm zap
