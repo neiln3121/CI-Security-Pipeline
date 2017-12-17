@@ -8,7 +8,7 @@ echo "::running zap tests"
 docker pull owasp/zap2docker-weekly
 echo ":::Baseline scan"
 docker run -t --name zap --link webapp -v $PWD/security:/zap/wrk:rw owasp/zap2docker-weekly zap-baseline.py \
-    -t http://webapp:8080 -g gen.conf -r zap-report.html
+    -t http://webapp:8080/bodgeit -g gen.conf -r zap-report.html
 docker cp zap:/zap/wrk/zap-report.html $PWD/security;
 docker rm zap
 
@@ -17,7 +17,7 @@ docker pull ahannigan/docker-arachni
 docker run --rm \
     --link webapp \
     -v $PWD/security:/arachni/reports  ahannigan/docker-arachni \
-    bin/arachni http://webapp:8080 \
+    bin/arachni http://webapp:8080/bodgeit \
     --browser-cluster-pool-size=1 \
     --report-save-path=reports/result.io.afr;
 docker run \
