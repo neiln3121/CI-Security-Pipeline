@@ -34,5 +34,10 @@ pipeline {
           archiveArtifacts artifacts: 'artifacts/**', fingerprint: true
         }
     }
+    stage('Clean Up') {
+        steps {
+          sh 'docker stop webapp'
+        }
+    }
   }
 }
