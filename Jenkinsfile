@@ -4,7 +4,7 @@ pipeline {
   stages {
     stage('Run Image') {
       steps {
-        sh 'docker run --rm --name webapp -it -d -p 50000:8080 psiinon/bodgeit'
+        sh 'docker run --rm --name webapp -it -d -p 5000:8080 psiinon/bodgeit'
       }
     }
     stage('Run Security Tests') {
@@ -13,9 +13,9 @@ pipeline {
           publishHTML (
               target: [
                       allowMissing         : false,
-                      alwaysLinkToLastBuild: false,
+                      alwaysLinkToLastBuild: true,
                       keepAll              : true,
-                      reportDir            : 'report',
+                      reportDir            : 'artifacts',
                       reportFiles          : 'zap-report.html',
                       reportName           : "ZAP Report"
               ]
@@ -33,11 +33,6 @@ pipeline {
               ]
             )
         }
-    }
-    stage('Clean up') {
-      steps {
-        sh 'docker stop webapp'
-      }
     }
   }
 }
