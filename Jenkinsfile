@@ -15,7 +15,7 @@ pipeline {
                       allowMissing         : false,
                       alwaysLinkToLastBuild: false,
                       keepAll              : true,
-                      reportDir            : 'html_reports',
+                      reportDir            : 'zap',
                       reportFiles          : 'zap-report.html',
                       reportName           : "ZAP Report"
               ]
@@ -26,7 +26,7 @@ pipeline {
                   allowMissing         : false,
                   alwaysLinkToLastBuild: false,
                   keepAll              : true,
-                  reportDir            : 'html_reports',
+                  reportDir            : 'arachi',
                   reportFiles          : 'index.html',
                   reportName           : "ARACHNI Report"
               ]
