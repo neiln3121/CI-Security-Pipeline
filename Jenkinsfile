@@ -31,7 +31,6 @@ pipeline {
                   reportName           : "ARACHNI Report"
               ]
             )
-          archiveArtifacts artifacts: 'html_reports/**', fingerprint: true
           
           sh 'docker stop webapp'
         }
