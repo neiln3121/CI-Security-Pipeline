@@ -15,7 +15,7 @@ pipeline {
                       allowMissing         : false,
                       alwaysLinkToLastBuild: false,
                       keepAll              : true,
-                      reportDir            : 'artifacts',
+                      reportDir            : 'html_reports',
                       reportFiles          : 'zap-report.html',
                       reportName           : "ZAP Report"
               ]
@@ -26,12 +26,12 @@ pipeline {
                   allowMissing         : false,
                   alwaysLinkToLastBuild: false,
                   keepAll              : true,
-                  reportDir            : 'artifacts',
+                  reportDir            : 'html_reports',
                   reportFiles          : 'index.html',
                   reportName           : "ARACHNI Report"
               ]
             )
-          archiveArtifacts artifacts: 'artifacts/**', fingerprint: true
+          archiveArtifacts artifacts: 'html_reports/**', fingerprint: true
           
           sh 'docker stop webapp'
         }

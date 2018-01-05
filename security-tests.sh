@@ -1,21 +1,24 @@
 echo "::running security tests"
-rm -rf $PWD/security $PWD/artifacts;
-mkdir -m777 -p $PWD/security $PWD/artifacts;
+rm -rf $PWD/tmp $PWD/html_reports;
+mkdir -m777 -p $PWD/tmp $PWD/html_reports;
 
 echo "::running zap tests"
+docker pull owasp/zap2docker-weekly:latest
 echo ":::Baseline scan"
 docker run --rm -t \
     --link webapp \
-    -v $PWD/artifacts:/zap/wrk:rw \
+    -v $PWD/tmp:/zap/wrk:rw \
     owasp/zap2docker-weekly zap-baseline.py -t http://webapp:8080/bodgeit -g gen.conf -r zap-report.html;
+mv $PWD/tmp/zap-report.html $PWD/html_reports;
 
 echo "::running arachni tests"
+docker pull ahannigan/docker-arachni:latest
 docker run --rm \
     --link webapp \
-    -v $PWD/security:/arachni/reports \
+    -v $PWD/tmp:/arachni/reports \
     ahannigan/docker-arachni bin/arachni http://webapp:8080/bodgeit --report-save-path=reports/result.io.afr;
 docker run --rm \
-    -v $PWD/security:/arachni/reports \
-    ahannigan/docker-arachni bin/arachni_reporter reports/result.io.afr --reporter=html:outfile=reports/arachni-report.html.zip --reporter=xunit:outfile=xunit_report.xml;
-unzip $PWD/security/arachni-report.html.zip -d $PWD/artifacts;
+    -v $PWD/tmp:/arachni/reports \
+    ahannigan/docker-arachni bin/arachni_reporter reports/result.io.afr --reporter=html:outfile=reports/arachni-report.html.zip --reporter=junit:outfile=junit_report.xml;
+unzip $PWD/tmp/arachni-report.html.zip -d $PWD/html_reports;
 
