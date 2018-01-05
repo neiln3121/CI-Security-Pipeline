@@ -8,7 +8,7 @@ echo ":::Baseline scan"
 docker run --rm -t \
     --link webapp \
     -v $PWD/zap:/zap/wrk:rw \
-    owasp/zap2docker-weekly zap-baseline.py -t http://webapp:8080/bodgeit -g gen.conf -r zap-report.html;
+    owasp/zap2docker-weekly zap-baseline.py -t http://webapp:8080/bodgeit -g gen.conf -r zap-report.html -x zap-report.xml;
 
 echo "::running arachni tests"
 docker pull ahannigan/docker-arachni:latest
@@ -18,6 +18,6 @@ docker run --rm \
     ahannigan/docker-arachni bin/arachni http://webapp:8080/bodgeit --report-save-path=reports/result.io.afr;
 docker run --rm \
     -v $PWD/tmp:/arachni/reports \
-    ahannigan/docker-arachni bin/arachni_reporter reports/result.io.afr --reporter=html:outfile=reports/arachni-report.html.zip;
+    ahannigan/docker-arachni bin/arachni_reporter reports/result.io.afr --reporter=html:outfile=reports/arachni-report.html.zip --reporter=xml:outfile=xml_report.xml;;
 unzip $PWD/tmp/arachni-report.html.zip -d $PWD/arachni;
 
