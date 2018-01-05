@@ -26,7 +26,7 @@ pipeline {
                   allowMissing         : false,
                   alwaysLinkToLastBuild: false,
                   keepAll              : true,
-                  reportDir            : 'arachi',
+                  reportDir            : 'arachni',
                   reportFiles          : 'index.html',
                   reportName           : "ARACHNI Report"
               ]
