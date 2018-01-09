@@ -11,13 +11,13 @@ docker run --rm -t \
     owasp/zap2docker-weekly zap-baseline.py -t http://webapp:8080/bodgeit -g gen.conf -r zap-report.html -x zap-report.xml;
 
 echo "::running arachni tests"
-docker pull ahannigan/docker-arachni:latest
+docker pull neiln3121/arachni-xunit:latest
 docker run --rm \
     --link webapp \
     -v $PWD/tmp:/arachni/reports \
-    ahannigan/docker-arachni bin/arachni http://webapp:8080/bodgeit --report-save-path=reports/result.io.afr;
+    neiln3121/arachni-xunit bin/arachni http://webapp:8080/bodgeit --report-save-path=reports/result.io.afr;
 docker run --rm \
     -v $PWD/tmp:/arachni/reports \
-    ahannigan/docker-arachni bin/arachni_reporter reports/result.io.afr --reporter=html:outfile=reports/arachni-report.html.zip --reporter=xml:outfile=reports/xml_report.xml;
+    neiln3121/arachni-xunit bin/arachni_reporter reports/result.io.afr --reporter=html:outfile=reports/arachni-report.html.zip --reporter=xunit:outfile=reports/xml_report.xml;
 unzip $PWD/tmp/arachni-report.html.zip -d $PWD/arachni;
 
